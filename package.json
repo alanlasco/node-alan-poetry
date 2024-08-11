@@ -1,7 +1,7 @@
 {
-  "name": "back-end-codo-a-codo",
+  "name": "node-poetry",
   "version": "1.0.0",
-  "description": "Proyecto Back-End para Codo a Codo",
+  "description": "Back-end Alan Poetry",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alanlasco/back-end-codo-a-codo.git"
+    "url": "git+https://github.com/alanlasco/node-alan-poetry.git"
   },
-  "author": "Grupo 12",
+  "author": "AXL Dev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alanlasco/back-end-codo-a-codo/issues"
+    "url": "https://github.com/alanlasco/node-alan-poetry/issues"
   },
-  "homepage": "https://github.com/alanlasco/back-end-codo-a-codo#readme",
+  "homepage": "https://github.com/alanlasco/node-alan-poetry#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
