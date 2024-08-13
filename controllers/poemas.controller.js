@@ -27,10 +27,30 @@ const show = (req, res) => {
   });
 };
 
+const destroy = (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  sql = "DELETE FROM `poemas` WHERE poemas.id_poema = ?";
+  db.query(sql, [id], (error, result) => {
+    if (error) {
+      return res.status(500).json({
+        error:
+          "Posiblemente este intentando borrar un poema que esta siendo utilizado por un registro, intente más tarde",
+      });
+    }
+
+    if (result.affectedRows == 0) {
+      return res.status(404).send({ error: "No existe el poema" });
+    }
+
+    res.json({ mensaje: "Poema eliminado" });
+  });
+};
+
 module.exports = {
   index,
   show,
   //   update,
   //   store,
-  //   destroy,
+  destroy,
 };
