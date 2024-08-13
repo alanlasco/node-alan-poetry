@@ -10,9 +10,26 @@ const index = (req, res) => {
   });
 };
 
+const show = (req, res) => {
+  const { id } = req.params;
+
+  const sql = "SELECT * FROM poemas WHERE id_poema = ?";
+  db.query(sql, [id], (error, rows) => {
+    if (error) {
+      return res.status(500).json({ error: "Intente mas tarde" });
+    }
+
+    if (rows.length == 0) {
+      return res.status(404).send({ error: "No existe el poema" });
+    }
+
+    res.json(rows[0]);
+  });
+};
+
 module.exports = {
   index,
-  //   show,
+  show,
   //   update,
   //   store,
   //   destroy,
