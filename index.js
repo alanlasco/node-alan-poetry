@@ -11,6 +11,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use("/poemas", require("./routes/poemas.router"));
+
 const PORT = 3000;
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
