@@ -47,10 +47,49 @@ const destroy = (req, res) => {
   });
 };
 
+function getFormattedDateTime() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const hours = String(today.getHours()).padStart(2, "0");
+  const minutes = String(today.getMinutes()).padStart(2, "0");
+  const seconds = String(today.getSeconds()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+const update = (req, res) => {
+  const { id } = req.params;
+  const { nombrePoema, textoPoema, favorita } = req.body;
+  const fav = parseInt(favorita);
+
+  const sql =
+    "UPDATE poemas SET nombre =?, poema = ?, favorita = ?, fecha = ? WHERE id_poema = ?";
+  db.query(
+    sql,
+    [nombrePoema, textoPoema, fav, getFormattedDateTime(), id],
+    (error, result) => {
+      console.log(error);
+      if (error) {
+        return res.status(500).json({ error: "Intente mas tarde" });
+      }
+
+      if (result.affectedRows == 0) {
+        return res.status(404).send({ error: "No existe el poema" });
+      }
+
+      const poema = { ...req.body, ...req.params };
+
+      res.json(poema);
+    }
+  );
+};
+
 module.exports = {
   index,
   show,
-  //   update,
+  update,
   //   store,
   destroy,
 };
