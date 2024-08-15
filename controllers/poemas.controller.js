@@ -59,6 +59,26 @@ function getFormattedDateTime() {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+const store = (req, res) => {
+  const { nombrePoema, textoPoema, favorita } = req.body;
+
+  const sql =
+    "INSERT INTO poemas (nombre, poema, fecha, favorita) VALUES (?,?,?,?)";
+  db.query(
+    sql,
+    [nombrePoema, textoPoema, getFormattedDateTime(), favorita],
+    (error, result) => {
+      if (error) {
+        return res.status(500).json({ error: "Intente mas tarde" });
+      }
+
+      const poema = { ...req.body, id: result.insertId };
+
+      res.status(201).json(poema);
+    }
+  );
+};
+
 const update = (req, res) => {
   const { id } = req.params;
   const { nombrePoema, textoPoema, favorita } = req.body;
@@ -90,6 +110,6 @@ module.exports = {
   index,
   show,
   update,
-  //   store,
+  store,
   destroy,
 };
