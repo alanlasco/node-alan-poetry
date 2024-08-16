@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/poemas", require("./routes/poemas.router"));
+app.use("/auth", require("./routes/auth.router"));
 
 const PORT = 3000;
 

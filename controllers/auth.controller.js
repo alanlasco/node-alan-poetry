@@ -3,14 +3,15 @@ const bcrypt = require("bcryptjs");
 const db = require("../db/db");
 
 const register = (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   const hash = bcrypt.hashSync(password, 8);
   console.log(hash);
 
   //   const user = { id: Date.now(), email, password: hash };
-  const sql = "INSERT INTO `users` ( `email`, `password`) VALUES ( ?, ?)";
-  db.query(sql, [email, hash], (error, rows) => {
+  const sql = "INSERT INTO `usuarios` ( `username`, `password`) VALUES ( ?, ?)";
+  db.query(sql, [username, hash], (error, rows) => {
+    console.log(error);
     if (error) {
       return res.status(500).json({ error: "Intente mas tarde" });
     }
@@ -29,11 +30,11 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   //   const user = userModel.find((u) => u.email === email);
-  const sql = "SELECT * FROM users where email = ?";
-  db.query(sql, [email], (error, rows) => {
+  const sql = "SELECT * FROM usuarios where username = ?";
+  db.query(sql, [username], (error, rows) => {
     // console.log(rows);
     if (error) {
       return res.status(500).json({ error: "Intente mas tarde" });
